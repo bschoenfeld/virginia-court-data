@@ -57,7 +57,8 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h2>Why?</h2>
+          <h2>Why it's difficult to get court data in Virginia</h2>
+          <h4>...and what the General Assembly should do about it</h4>
           <p>In February 2016, a Circuit Court in Virginia ruled that the state's Supreme Court does not have to release a bulk collection of lower court case information, even though the collection is maintained to provide access to the records through a public website. The judge ruled that the Supreme Court is not the custodian of the records and does not have authority to release them; instead, the records belong to the individual circuit court clerks who provide them to the Supreme Court.</p>
           <p>Indeed, the Supreme Court’s case information website does not provide a unified interface for accessing the records it has collected. Instead, it maintains this political separation by requiring the user to choose one of the 118 circuit courts that use the system from a drop down menu on the first page. This separation does nothing to serve the public. It's reminiscent of traveling from one courthouse to another to collect information, the kind of geographic boundary that computers are supposed to eliminate.</p>
           <p>What makes this situation even more frustrating is that the Supreme Court compiled this database to make administration of the lower courts more efficient, but it refuses to share those benefits with the public. According to expenditure data on Virginia’s Commonwealth Datapoint website, operation of the Supreme Court’s computer systems costs taxpayers more than $5 million a year. It’s unclear how much these systems cost to build in the first place, but the Supreme Court has spent more than $2.5 million in software maintenance since 2012. The case management system is offered to Circuit Courts for free to incentivize its use over private systems, which explains why all but two of 120 courts use it. The Supreme Court has pooled taxpayer funds to dangle the largest, most enticing carrot. There’s no good reason that the public shouldn’t also reap the benefits of having a central database of case information, but to add insult to injury, they are forced to pay for artificial roadblocks that prevent it.</p>
@@ -72,6 +73,16 @@
       <div id="data-section" class="row">
         <div class="col-xs-12">
           <h2>The Data</h2>
+          <h4>Criminal Circuit Court Cases</h4>
+          <table class="table" id="criminalCircuitCourtTable">
+              <thead>
+                  <tr>
+                      <th>Year of most recent hearing</th>
+                      <th># Cases</th>
+                      <th>File Size</th>
+                  </tr>
+              </thead>
+          </table>
         </div>
       </div>
 
@@ -80,12 +91,105 @@
       <footer>
         <p>Contact <a href="https://twitter.com/oilytheotter">@oilytheotter</a></p>
       </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    </div> <!-- /container -->
+
+        <script type="text/template" id="courtDataSetTemplate">
+            <tbody>
+                <% _.each(criminalCourtDataSets, function(dataSet){ %>
+                    <tr>
+                        <td><%= dataSet.year %></td>
+                        <td><%= dataSet.cases %></td>
+                        <td><%= dataSet.filesize %> MB <a href="<%= dataSet.downloadLink %>" target="_blank"><small>Download</small></a></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
 
         <script src="js/main.js"></script>
+
+        <script type="text/javascript">
+            var courtDataSetTemplate = _.template(
+                $("#courtDataSetTemplate").html()
+            );
+
+            var templateData = {
+                criminalCourtDataSets: [
+                    {
+                        year: 2006,
+                        cases: 49247,
+                        filesize: 2.3,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2006.zip"
+                    },
+                    {
+                        year: 2007,
+                        cases: 50812,
+                        filesize: 2.4,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2007.zip"
+                    },
+                    {
+                        year: 2008,
+                        cases: 48916,
+                        filesize: 2.3,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2008.zip"
+                    },
+                    {
+                        year: 2009,
+                        cases: 46220,
+                        filesize: 2.1,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2009.zip"
+                    },
+                    {
+                        year: 2010,
+                        cases: 42665,
+                        filesize: 2,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2010.zip"
+                    },
+                    {
+                        year: 2011,
+                        cases: 173587,
+                        filesize: 8,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2011.zip"
+                    },
+                    {
+                        year: 2012,
+                        cases: 178579,
+                        filesize: 8.2,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2012.zip"
+                    },
+                    {
+                        year: 2013,
+                        cases: 184376,
+                        filesize: 8.5,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2013.zip"
+                    },
+                    {
+                        year: 2014,
+                        cases: 189014,
+                        filesize: 8.7,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2014.zip"
+                    },
+                    {
+                        year: 2015,
+                        cases: 259005,
+                        filesize: 11.3,
+                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2015.zip"
+                    },
+
+                ]
+            };
+            templateData.criminalCourtDataSets.reverse();
+
+            $("#criminalCircuitCourtTable thead").after(
+                courtDataSetTemplate(templateData)
+            );
+        </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
