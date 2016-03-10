@@ -75,12 +75,13 @@
           <h2>The Data</h2>
           <p>All downloads are compressed comma-separated values (CSV) files, which can be unzipped and easily imported into software like Google Sheets, Microsoft Excel, and Microsoft Access. The CSV files compress to about 10% of their actual size, so they can get pretty big when you unzip them. If you want a smaller subset of data or you need help using the data, get in touch with me on <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:virginiacourtdata@oilytheotter.com">Email</a>.</p>
           <h4>Criminal Circuit Court Cases</h4>
-          <table class="table" id="criminalCircuitCourtTable">
+          <table class="table table-hover" id="criminalCircuitCourtTable">
               <thead>
                   <tr>
                       <th>Year of most recent hearing</th>
                       <th># Cases</th>
                       <th>File Size</th>
+                      <th></th>
                   </tr>
               </thead>
           </table>
@@ -100,7 +101,8 @@
                     <tr>
                         <td><%= dataSet.year %></td>
                         <td><%= dataSet.cases %></td>
-                        <td><%= dataSet.filesize %> MB <a href="<%= dataSet.downloadLink %>" target="_blank"><small>Download</small></a></td>
+                        <td><%= dataSet.filesize %> MB</td>
+                        <td><a href="<%= dataSet.downloadLink %>" target="_blank">Download</a></td>
                     </tr>
                 <% }); %>
             </tbody>
