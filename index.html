@@ -101,7 +101,7 @@
                     <tr>
                         <td><%= dataSet.year %></td>
                         <td><%= dataSet.cases %></td>
-                        <td><%= dataSet.filesize %> MB</td>
+                        <td><%= Number((dataSet.filesize / 1000000).toFixed(1)) %> MB</td>
                         <td><a href="<%= dataSet.downloadLink %>" target="_blank">Download</a></td>
                     </tr>
                 <% }); %>
@@ -116,6 +116,7 @@
         <script src="js/vendor/bootstrap.min.js"></script>
 
         <script src="js/main.js"></script>
+        <script src="js/criminalCircuitCourtCaseExport.js"></script>
 
         <script type="text/javascript">
             var courtDataSetTemplate = _.template(
@@ -123,69 +124,7 @@
             );
 
             var templateData = {
-                criminalCourtDataSets: [
-                    {
-                        year: 2006,
-                        cases: 49247,
-                        filesize: 2.3,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2006.zip"
-                    },
-                    {
-                        year: 2007,
-                        cases: 50812,
-                        filesize: 2.4,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2007.zip"
-                    },
-                    {
-                        year: 2008,
-                        cases: 48916,
-                        filesize: 2.3,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2008.zip"
-                    },
-                    {
-                        year: 2009,
-                        cases: 46220,
-                        filesize: 2.1,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2009.zip"
-                    },
-                    {
-                        year: 2010,
-                        cases: 42665,
-                        filesize: 2,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2010.zip"
-                    },
-                    {
-                        year: 2011,
-                        cases: 173587,
-                        filesize: 8,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2011.zip"
-                    },
-                    {
-                        year: 2012,
-                        cases: 178579,
-                        filesize: 8.2,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2012.zip"
-                    },
-                    {
-                        year: 2013,
-                        cases: 184376,
-                        filesize: 8.5,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2013.zip"
-                    },
-                    {
-                        year: 2014,
-                        cases: 189014,
-                        filesize: 8.7,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2014.zip"
-                    },
-                    {
-                        year: 2015,
-                        cases: 259005,
-                        filesize: 11.3,
-                        downloadLink: "https://s3.amazonaws.com/virginia-court-data/criminal_circuit_court_cases_2015.zip"
-                    },
-
-                ]
+                criminalCourtDataSets: virginiaCourtCaseDataSets
             };
             templateData.criminalCourtDataSets.reverse();
 
