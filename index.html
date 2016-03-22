@@ -74,7 +74,7 @@
         <div class="col-xs-12">
           <h2>The Data</h2>
           <h5>Format</h5>
-          <p>All downloads are compressed comma-separated values (CSV) files, which can be unzipped and easily imported into software like Google Sheets, Microsoft Excel, and Microsoft Access. The CSV files compress to about 10% of their actual size, so they can get pretty big when you unzip them. If you want a smaller subset of data or you need help using the data, get in touch with me on <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:virginiacourtdata@oilytheotter.com">Email</a>.</p>
+          <p>Downloads are compressed comma separated value (CSV) files, which can be unzipped and easily imported into software like Google Sheets, Microsoft Excel, and Microsoft Access. The data in each download are broken into twelve CSV files, one for each month, because of how large the files can be. If you want a smaller subset of data or you need help using the data, get in touch with me on <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:virginiacourtdata@oilytheotter.com">Email</a>.</p>
           <h5>Anonymized</h5>
           <p>Defendant names have been transformed with a one way hash function that creates a unique fingerprint to replace the name. This makes the data anonymous while maintaining the ability to group all cases in which a single individual has been involved. If you have a specific need for the original data, please contact me.</p>
           <h4>Criminal Circuit Court Cases</h4>
@@ -82,8 +82,22 @@
               <thead>
                   <tr>
                       <th>Year of most recent hearing</th>
-                      <th># Cases</th>
-                      <th>File Size</th>
+                      <th>Cases</th>
+                      <th>Download Size</th>
+                      <th>Uncompressed Size</th>
+                      <th></th>
+                  </tr>
+              </thead>
+          </table>
+
+          <h4>Criminal District Court Cases</h4>
+          <table class="table table-hover" id="criminalDistrictCourtTable">
+              <thead>
+                  <tr>
+                      <th>Year of most recent hearing</th>
+                      <th>Cases</th>
+                      <th>Download Size</th>
+                      <th>Uncompressed Size</th>
                       <th></th>
                   </tr>
               </thead>
@@ -101,11 +115,12 @@
 
         <script type="text/template" id="courtDataSetTemplate">
             <tbody>
-                <% _.each(criminalCourtDataSets, function(dataSet){ %>
+                <% _.each(dataSets, function(dataSet){ %>
                     <tr>
                         <td><%= dataSet.year %></td>
-                        <td><%= dataSet.cases %></td>
-                        <td><%= Number((dataSet.filesize / 1000000).toFixed(1)) %> MB</td>
+                        <td><%= dataSet.cases.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
+                        <td><%= (dataSet.filesize / 1000000).toFixed(1) %> MB</td>
+                        <td><%= (dataSet.filesizeUncompressed / 1000000).toFixed(1) %> MB</td>
                         <td><a href="<%= dataSet.downloadLink %>" target="_blank">Download</a></td>
                     </tr>
                 <% }); %>
@@ -121,19 +136,21 @@
 
         <script src="js/main.js"></script>
         <script src="js/criminalCircuitCourtCaseExport.js"></script>
+        <script src="js/criminalDistrictCourtCaseExport.js"></script>
 
         <script type="text/javascript">
             var courtDataSetTemplate = _.template(
                 $("#courtDataSetTemplate").html()
             );
 
-            var templateData = {
-                criminalCourtDataSets: virginiaCourtCaseDataSets
-            };
-            templateData.criminalCourtDataSets.reverse();
+            circuitCourtCaseDataSets.reverse();
+            districtCourtCaseDataSets.reverse();
 
             $("#criminalCircuitCourtTable thead").after(
-                courtDataSetTemplate(templateData)
+                courtDataSetTemplate({dataSets: circuitCourtCaseDataSets})
+            );
+            $("#criminalDistrictCourtTable thead").after(
+                courtDataSetTemplate({dataSets: districtCourtCaseDataSets})
             );
         </script>
 
