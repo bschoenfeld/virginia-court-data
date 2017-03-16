@@ -69,6 +69,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="#stories">Stories</a></li>
+                <li><a href="#open-data">Open Data</a></li>
                 <li><a href="#details">Details</a></li>
                 <li><a href="#download">Download</a></li>
             </ul>
@@ -118,15 +119,25 @@
         </div>
       </div>
 
+      <div id="open-data" class="row">
+        <div class="col-xs-12">
+          <h2>Open Data</h2>
+          <p>This website is an independent, private effort, created and run as a hobby, and is in no way affiliated with the Commonwealth of Virginia or Virginia's Court System. We hope that the state will begin releasing court data in bulk so that we don't have to.</p>
+          <h5><a href="https://medium.com/@virginiacourtdata/court-data-and-the-2017-session-of-the-general-assembly-f1bae58a1f1e#.3w6zknpfp">Court Data and the 2017 Session of the General Assembly</a></h5>
+          <h5><a href="https://medium.com/@virginiacourtdata/why-its-difficult-to-get-court-data-in-virginia-404473507f0d#.5hql9ylwa">Why it’s difficult to get court data in Virginia</a></h5>
+          <p>Check <a href="https://medium.com/@virginiacourtdata">Medium</a> for more news and amateur data analysis.</p>
+        </div>
+      </div>
+
       <div id="details" class="row">
         <div class="col-xs-12">
           <h2>Details</h2>
           <h5>Format</h5>
-          <p>Downloads are compressed comma separated value (CSV) files, which can be unzipped and easily imported into software like Google Sheets, Microsoft Excel, and Microsoft Access. The data in each download are broken into twelve CSV files, one for each month, because of how large the files can be. If you want a smaller subset of data or you need help using the data, get in touch with me on <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:info@virginiacourtdata.org">Email</a>.</p>
+          <p>Downloads are compressed comma separated value (CSV) files, which can be unzipped and easily imported into software like Google Sheets, Microsoft Excel, and Microsoft Access. If there are more than 250,000 cases, they will be broken up into multiple files for ease of use. If you want a smaller subset of data or you need help using the data, get in touch with me on <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:info@virginiacourtdata.org">Email</a>.</p>
           <h5>Anonymized</h5>
-          <p>Defendant names have been transformed with a one way hash function that creates a unique fingerprint to replace the name. This makes the data anonymous while maintaining the ability to group all cases in which a single individual has been involved. If you have a specific need for the original data, please contact me.</p>
-          <h5>Circuit Court Data</h5>
-          <p>Alexandria and Fairfax are not yet available</p>
+          <p>Case numbers, names, and dates of birth have been removed. If you have a specific need for the original data, please log in below.</p>
+          <h5>Incomplete Circuit Court Data</h5>
+          <p>Alexandria and Fairfax are not available.</p>
         </div>
       </div>
 
@@ -145,7 +156,7 @@
               <button id="sign-out" class="btn btn-xs">Sign Out</button>
             </p>
             <p id="verify-email">
-                Please check your email for a verification message from noreply@virginiacourtdata.org.
+                Please check your email for a verification message from noreply@virginiacourtdata.org. Click the link and then reload this page.
                 <button class="btn btn-xs" id="resend-email">Resend Email</button>
             </p>
             <div id="info-form">
