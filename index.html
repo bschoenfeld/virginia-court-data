@@ -51,7 +51,7 @@
               margin-bottom: 25px;
             }
 
-            #info-form, #data {
+            #info-form, #data, #verify-email {
               display: none;
             }
         </style>
@@ -143,6 +143,9 @@
             <p>
               Signed in as <span id="user-email"></span>
               <button id="sign-out" class="btn btn-xs">Sign Out</button>
+            </p>
+            <p id="verify-email">
+                Please check your email for a verification message from noreply@virginiacourtdata.org.
             </p>
             <div id="info-form">
               <p>Please provide some information for our records. If you have any quesitons, send us an <a href="mailto:info@virginiacourtdata.org">email</a>.</p>
@@ -296,7 +299,11 @@
                     if(!organization) {
                         $('#info-form').show();
                         $('#data').hide();
+                        user.sendEmailVerification();
+                    } else if(!user.emailVerified) {
+                        $('#verify-email').show();
                     } else {
+                        $('#verify-email').hide();
                         loadDataSet('complete');
                     }
 
@@ -334,8 +341,14 @@
                     usage: usage
                 });
 
+                $('#info-form').hide();
+
                 // Load court data
-                loadDataSet('complete');
+                if(!user.emailVerified) {
+                    $('#verify-email').show();
+                } else {
+                    loadDataSet('complete');
+                }
             }
 
             function initApp() {
