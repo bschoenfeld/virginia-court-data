@@ -387,7 +387,6 @@
             var loadDataSet = function(dataSetName) {
                 firebase.database().ref('data/' + dataSetName).once('value').then(function(dataSetRef) {
                     var dataSets = dataSetRef.val();
-                    console.log(dataSets);
 
                     var courtDataSetTemplate = _.template(
                         $("#courtDataSetTemplate").html()
