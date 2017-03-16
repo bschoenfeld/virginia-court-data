@@ -146,6 +146,7 @@
             </p>
             <p id="verify-email">
                 Please check your email for a verification message from noreply@virginiacourtdata.org.
+                <button class="btn btn-xs" id="resend-email">Resend Email</button>
             </p>
             <div id="info-form">
               <p>Please provide some information for our records. If you have any quesitons, send us an <a href="mailto:info@virginiacourtdata.org">email</a>.</p>
@@ -317,6 +318,12 @@
                 });
             }
 
+            function resendEmail() {
+                if(user) {
+                    user.sendEmailVerification();
+                }
+            }
+
             function signOut() {
                 firebase.auth().signOut();
             }
@@ -388,6 +395,7 @@
 
             window.addEventListener('load', function() {
                 initApp();
+                $('#resend-email').click(resendEmail);
                 $('#info-form form').submit(saveOrganization);
                 $('#sign-out').click(signOut);
             });
