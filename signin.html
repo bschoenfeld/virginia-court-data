@@ -1,0 +1,44 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Virginia Court Data</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />   
+  </head>
+
+  <body>
+    <div id="firebaseui-auth-container"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyC7Gp8FIZIkFVWdZ14onNsuIr329oGK0Y0",
+        authDomain: "virginiacourtdata.firebaseapp.com",
+        databaseURL: "https://virginiacourtdata.firebaseio.com",
+        storageBucket: "virginiacourtdata.appspot.com",
+        messagingSenderId: "948563983018"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+
+    <script type="text/javascript">
+      var uiConfig = {
+        signInSuccessUrl: '/#download',
+        signInOptions: [
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ]
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+  </body>
+</html>

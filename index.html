@@ -7,11 +7,52 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
         <style>
             body {
-                padding-top: 50px;
+                padding-top: 40px;
                 padding-bottom: 20px;
+            }
+
+            #section-header {
+                background-image: url('/img/court-search-blur-background.jpeg');
+                background-size: cover;
+                background-position: center;
+                height: 400px;
+                margin-top: -25px;
+                padding: 48px 0;
+            }
+
+            #section-header .container-wrapper {
+                position: absolute;
+                width: 100%;
+                margin-top: 50px;
+                padding: 40px;
+                background: rgba(255, 255, 255, 0.25);
+            }
+
+            #section-header .heading {
+                font-size: 40px;
+                font-weight: lighter;
+                letter-spacing: 2px;
+            }
+
+            #section-header .sub-heading {
+                font-size: 18px;
+            }
+
+            #usages h4 {
+                font-size: 16px;
+            }
+
+            #sign-in, #signed-in {
+              display: none;
+              margin-bottom: 25px;
+            }
+
+            #info-form, #data {
+              display: none;
             }
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -23,14 +64,17 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>-->
           <a class="navbar-brand" href="#">Virginia Court Data</a>
         </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#stories">Stories</a></li>
+                <li><a href="#details">Details</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right right">
+            </ul>
+      </div>
         <!--<div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" role="form">
             <div class="form-group">
@@ -46,99 +90,154 @@
     </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Virginia Court Data</h1>
-        <p>A repository of court case details from Virginia's Circuit and General District courts, available for bulk download, collected by citizens and open government advocates.</p>
-        <p><a class="btn btn-primary btn-lg" href="#data" role="button">Show me the data &raquo;</a></p>
-      </div>
-    </div>
+    <section id="section-header">
+        <div class="container-wrapper">
+            <div class="container">
+                <div class="heading">
+                    Virginia Court Data
+                </div>
+                <div class="sub-heading">
+                    Court case information from Virginia's Circuit and General District courts, available for bulk download
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div class="container">
-      <div class="row">
+      <div id="stories" class="row">
         <div class="col-xs-12">
-          <h2>Usages of these data</h2>
-          <h4><a href="http://www.dailypress.com/news/politics/dp-nws-probation-racial-disparity-virginia-20150329-story.html">Racial disparities exists in probation violation penalties, reports show</a><i><small>, Dave Ress, Daily Press, March 29, 2015</i></small></h4>
-          <h4><a href="http://www.roanoke.com/news/local/roanoke/pattern-of-settling-lawsuits-against-roanoke-area-hospitals-makes-them/article_af00ca0b-0969-5e2e-841d-c3b172f25b86.html">Pattern of settling lawsuits against Roanoke-area hospitals makes them hard to find</a><i><small>, Laurence Hammack, Roanoke Times, October 11, 2015</i></small></h4>
-          <h4><a href="http://www.dailypress.com/news/dp-nws-crime-courts-data-20160312-story.html">Courts records show many crimes, but few prison terms</a><i><small>, Dave Ress, Daily Press, March 12, 2016</i></small></h4>
-          <h4><a href="http://www.dailypress.com/news/dp-nws-sunshine-guns-20160312-story.html">Guns: Hampton Roads court records show many gun law violators get a pass</a><i><small>, Dave Ress, Daily Press, March 15, 2016</i></small></h4>
-          <h4><a href="http://www.dailypress.com/news/dp-nws-sunshine-disparities-20160317-story.html">Blacks more likely to get prison time in plea deals, Hampton Roads court data show</a><i><small>, Dave Ress, Daily Press, March 17, 2016</i></small></h4>
+          <h2>Stories</h2>
           <h4><a href="https://lawyerist.com/110584/big-bias-big-data/">Uncovering Big Bias with Big Data</a><i><small>, Lawyerist.com, David Colarusso, May 31, 2016</i></small></h4>
-          <p>Let me know how you are using the data - <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:virginiacourtdata@oilytheotter.com">Email</a></p>
+          <h4><a href="http://www.dailypress.com/news/dp-nws-sunshine-disparities-20160317-story.html">Blacks more likely to get prison time in plea deals, Hampton Roads court data show</a><i><small>, Dave Ress, Daily Press, March 17, 2016</i></small></h4>
+          <h4><a href="http://www.dailypress.com/news/dp-nws-sunshine-guns-20160312-story.html">Guns: Hampton Roads court records show many gun law violators get a pass</a><i><small>, Dave Ress, Daily Press, March 15, 2016</i></small></h4>
+          <h4><a href="http://www.dailypress.com/news/dp-nws-crime-courts-data-20160312-story.html">Courts records show many crimes, but few prison terms</a><i><small>, Dave Ress, Daily Press, March 12, 2016</i></small></h4>
+          <h4><a href="http://www.roanoke.com/news/local/roanoke/pattern-of-settling-lawsuits-against-roanoke-area-hospitals-makes-them/article_af00ca0b-0969-5e2e-841d-c3b172f25b86.html">Pattern of settling lawsuits against Roanoke-area hospitals makes them hard to find</a><i><small>, Laurence Hammack, Roanoke Times, October 11, 2015</i></small></h4>
+          <h4><a href="http://www.dailypress.com/news/politics/dp-nws-probation-racial-disparity-virginia-20150329-story.html">Racial disparities exists in probation violation penalties, reports show</a><i><small>, Dave Ress, Daily Press, March 29, 2015</i></small></h4>
+          
+          <p>Let me know how you are using the data - <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:info@virginiacourtdata.org">Email</a></p>
         </div>
       </div>
 
-      <div class="row">
+      <div id="details" class="row">
         <div class="col-xs-12">
-          <h2>Why it's difficult to get court data in Virginia</h2>
-          <h4>...and what the General Assembly should do about it</h4>
-          <p>In February 2016, a Circuit Court in Virginia ruled that the state's Supreme Court does not have to release a bulk collection of lower court case information, even though the collection is maintained to provide access to the records through a public website. The judge ruled that the Supreme Court is not the custodian of the records and does not have authority to release them; instead, the records belong to the individual circuit court clerks who provide them to the Supreme Court.</p>
-          <p>Indeed, the Supreme Court’s case information website does not provide a unified interface for accessing the records it has collected. Instead, it maintains this political separation by requiring the user to choose one of the 118 circuit courts that use the system from a drop down menu on the first page. This separation does nothing to serve the public. It's reminiscent of traveling from one courthouse to another to collect information, the kind of geographic boundary that computers are supposed to eliminate.</p>
-          <p>What makes this situation even more frustrating is that the Supreme Court compiled this database to make administration of the lower courts more efficient, but it refuses to share those benefits with the public. According to expenditure data on Virginia’s Commonwealth Datapoint website, operation of the Supreme Court’s computer systems costs taxpayers more than $5 million a year. It’s unclear how much these systems cost to build in the first place, but the Supreme Court has spent more than $2.5 million in software maintenance since 2012. The case management system is offered to Circuit Courts for free to incentivize its use over private systems, which explains why all but two of 120 courts use it. The Supreme Court has pooled taxpayer funds to dangle the largest, most enticing carrot. There’s no good reason that the public shouldn’t also reap the benefits of having a central database of case information, but to add insult to injury, they are forced to pay for artificial roadblocks that prevent it.</p>
-          <p>The problem with the Supreme Court’s argument and the judge’s ruling against releasing the case information in bulk is that the lower courts have already given implicit permission to do so by using the system. Any software developer who looks at the Supreme Court’s public website will tell you that it’s possible, indeed relatively easy, to write software that gets around the roadblocks that are in place. Because it’s possible for a person to click the buttons on the Supreme Court’s website to go from court to court, running the same search in each one, it’s possible for a computer to be programmed to complete those actions automatically, and much faster. This technique is called web scraping and it’s so common that there are a number of tools and examples available for free online. The Supreme Court’s website provides search options that make it easy to find any and every case in the system, which makes bulk collection a viable option for web scrapers.</p>
-          <p>Scraping data from the Supreme Court’s website is not a hypothetical idea. In 2014, at the request of a journalist from the Roanoke Times, volunteer software engineers created free, open source software to get around the website’s roadblocks and allow anyone to perform a statewide name search. Since then, the software has been modified and used to help journalists and lawyers collect bulk data and investigate low prosecution rates for sexual assault cases, hospitals hiding malpractice lawsuits, and criminal defendants being denied their constitutional right to counsel. In the past week, the software has been used to download more than one million criminal case records from the last five years, proving that the database the Supreme Court refuses to release is available to anyone with the skills to get it, or enough money to hire someone to do so.</p>
-          <p>The Supreme Court could spend more taxpayer dollars to change the website and make web scraping more difficult, but it’s virtually impossible to prevent it all together. The right thing to do is to make the bulk data available to anyone who asks for it, dropping the farce that it’s not possible and eliminating the need for custom software development that is typically too expensive for anyone monitoring the courts in service of the citizens of Virginia.</p>
-          <p>Unfortunately, the Supreme Court has decided to fight against the release of case information in bulk, even though they have released this collection to members of the public in the past. The Code of Virginia provides that the Executive Secretary of the Supreme Court shall operate a case management system for the circuit courts (§ 17.1-502). The legislature must act by amending the law to state that the Supreme Court’s case management system shall provide free remote public access to summary case records, which it already does, and that the Supreme Court shall produce those summary case records in bulk at the request of any member of the public. This amendment will not impose any burden on the Supreme Court as the technology to implement the amendment is already in place. The amendment will simply prevent the Supreme Court from limiting access to public information that is readily available. The amendment will also not impose on the rights and duties of circuit court clerks. The current law does not require clerks to use the Supreme Court’s case management system. Instead it provides that clerks can establish their own case management system using a private vendor.</p>
-          <p>The Supreme Court’s collection of summary case information is essential to any effort to monitor and report on Virginia’s judicial system. While the Supreme Court refuses to officially release this collection, anyone with the proper software can reproduce it. The Code of Virginia must be amended to ensure transparency in our judicial system.</p>
-        </div>
-      </div>
-
-      <div id="data" class="row">
-        <div class="col-xs-12">
-          <h2>The Data</h2>
+          <h2>Details</h2>
           <h5>Format</h5>
-          <p>Downloads are compressed comma separated value (CSV) files, which can be unzipped and easily imported into software like Google Sheets, Microsoft Excel, and Microsoft Access. The data in each download are broken into twelve CSV files, one for each month, because of how large the files can be. If you want a smaller subset of data or you need help using the data, get in touch with me on <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:virginiacourtdata@oilytheotter.com">Email</a>.</p>
+          <p>Downloads are compressed comma separated value (CSV) files, which can be unzipped and easily imported into software like Google Sheets, Microsoft Excel, and Microsoft Access. The data in each download are broken into twelve CSV files, one for each month, because of how large the files can be. If you want a smaller subset of data or you need help using the data, get in touch with me on <a href="https://twitter.com/oilytheotter">Twitter</a> or <a href="mailto:info@virginiacourtdata.org">Email</a>.</p>
           <h5>Anonymized</h5>
           <p>Defendant names have been transformed with a one way hash function that creates a unique fingerprint to replace the name. This makes the data anonymous while maintaining the ability to group all cases in which a single individual has been involved. If you have a specific need for the original data, please contact me.</p>
-          <h4>Criminal Circuit Court Cases</h4>
+          <h5>Circuit Court Data</h5>
           <p>Alexandria and Fairfax are not yet available</p>
-          <table class="table table-hover" id="criminalCircuitCourtTable">
-              <thead>
-                  <tr>
-                      <th>Year of most recent hearing</th>
-                      <th>Cases</th>
-                      <th>Download Size</th>
-                      <th>Uncompressed Size</th>
-                      <th><div class="download-extra" contentEditable="true"></div></th>
-                  </tr>
-              </thead>
-          </table>
+        </div>
+      </div>
 
-          <h4>Criminal District Court Cases</h4>
-          <table class="table table-hover" id="criminalDistrictCourtTable">
+      <div id="download" class="row">
+        <div class="col-xs-12">
+          <h2>Download</h2>
+
+          <div id="sign-in">
+            <div>Need un-anonymized data? We won't share your information with anyone.</div>
+            <a class="btn btn-primary" href="signin.html">Request Full Datasets</a>
+          </div>
+
+          <div id="signed-in">
+            <p>
+              Signed in as <span id="user-email"></span>
+              <button id="sign-out" class="btn btn-xs">Sign Out</button>
+            </p>
+            <div id="info-form">
+              <p>Please provide some information for our records. If you have any quesitons, send us an <a href="mailto:info@virginiacourtdata.org">email</a>.</p>
+              <form>
+                <div class="form-group">
+                  <label for="form-organization">Organization</label>
+                  <input type="text" class="form-control" id="form-organization">
+                </div>
+                <div class="form-group">
+                  <label for="form-usage">What are you using the data for?</label>
+                  <textarea class="form-control" rows="3" id="form-usage"></textarea>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+              </form>
+            </div>
+          </div>
+
+          <div id="data">
+            <h4>Circuit Criminal Court Cases</h4>
+            <table class="table table-hover" id="circuit-criminal-table">
               <thead>
-                  <tr>
-                      <th>Year of most recent hearing</th>
-                      <th>Cases</th>
-                      <th>Download Size</th>
-                      <th>Uncompressed Size</th>
-                      <th><div class="download-extra" contentEditable="true"></div></th>
-                  </tr>
+                <tr>
+                  <th>Year of most recent hearing</th>
+                  <th>Cases</th>
+                  <th>Download Size</th>
+                  <th>Uncompressed Size</th>
+                  <th><div class="download-extra" contentEditable="true"></div></th>
+                </tr>
               </thead>
-          </table>
+              <tbody></tbody>
+            </table>
+
+            <h4>District Criminal Court Cases</h4>
+            <table class="table table-hover" id="district-criminal-table">
+              <thead>
+                <tr>
+                  <th>Year of most recent hearing</th>
+                  <th>Cases</th>
+                  <th>Download Size</th>
+                  <th>Uncompressed Size</th>
+                  <th><div class="download-extra" contentEditable="true"></div></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <h4>Circuit Civil Court Cases</h4>
+            <table class="table table-hover" id="circuit-civil-table">
+              <thead>
+                <tr>
+                  <th>Year of most recent hearing</th>
+                  <th>Cases</th>
+                  <th>Download Size</th>
+                  <th>Uncompressed Size</th>
+                  <th><div class="download-extra" contentEditable="true"></div></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <h4>District Civil Court Cases</h4>
+            <table class="table table-hover" id="district-civil-table">
+              <thead>
+                <tr>
+                  <th>Year of most recent hearing</th>
+                  <th>Cases</th>
+                  <th>Download Size</th>
+                  <th>Uncompressed Size</th>
+                  <th><div class="download-extra" contentEditable="true"></div></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <hr>
 
       <footer>
-          <p>All court records are created by Virginia's Court System, and are thus without copyright protection, so may be reused and reproduced freely, without seeking any form of permission from anybody. All other website content is published under <a href="http://opensource.org/licenses/MIT">the MIT license</a>. This website is an independent, private effort, created and run as a hobby, and is in no way affiliated with the Commonwealth of Virginia or Virginia's Court System.</p>
-          <p>Contact <a href="https://twitter.com/oilytheotter">Ben Schoenfeld</a></p>
+          <p>These court records are created by Virginia's Court System, and are thus without copyright protection, so may be reused and reproduced freely, without seeking any form of permission from anybody. All other website content is published under <a href="http://opensource.org/licenses/MIT">the MIT license</a>. This website is an independent, private effort, created and run as a hobby, and is in no way affiliated with the Commonwealth of Virginia or Virginia's Court System.</p>
+          <p>Contact <a href="mailto:info@virginiacourtdata.org">Ben</a></p>
       </footer>
     </div> <!-- /container -->
 
         <script type="text/template" id="courtDataSetTemplate">
-            <tbody>
-                <% _.each(dataSets, function(dataSet){ %>
-                    <tr>
-                        <td><%= dataSet.year %></td>
-                        <td><%= dataSet.cases.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
-                        <td><%= (dataSet.filesize / 1000000).toFixed(1) %> MB</td>
-                        <td><%= (dataSet.filesizeUncompressed / 1000000).toFixed(1) %> MB</td>
-                        <td><a href="<%= dataSet.downloadLink %>" target="_blank">Download</a></td>
-                    </tr>
-                <% }); %>
-            </tbody>
+            <% _.each(dataSets, function(dataSet){ %>
+                <tr>
+                    <td><%= dataSet.year %></td>
+                    <td><%= dataSet.cases.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
+                    <td><%= (dataSet.filesize / 1000000).toFixed(1) %> MB</td>
+                    <td><%= (dataSet.filesizeUncompressed / 1000000).toFixed(1) %> MB</td>
+                    <td><a href="<%= dataSet.downloadLink %>" target="_blank">Download</a></td>
+                </tr>
+            <% }); %>
         </script>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -148,36 +247,137 @@
 
         <script src="js/vendor/bootstrap.min.js"></script>
 
+        <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyC7Gp8FIZIkFVWdZ14onNsuIr329oGK0Y0",
+                authDomain: "virginiacourtdata.firebaseapp.com",
+                databaseURL: "https://virginiacourtdata.firebaseio.com",
+                storageBucket: "virginiacourtdata.appspot.com",
+                messagingSenderId: "948563983018"
+            };
+            firebase.initializeApp(config);
+        </script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+
         <script src="js/main.js"></script>
-        <script src="js/criminalCircuitCourtCaseExport.js"></script>
-        <script src="js/criminalDistrictCourtCaseExport.js"></script>
 
         <script type="text/javascript">
-            $(".download-extra").keydown(function(event){
-                if(event.keyCode == 13){
-                    var extra = $(event.target).text();
-                    $("table a").each(function() {
-                        var href = $(this).attr("href");
-                        href = href.slice(0,-4) + "_" + extra + href.slice(-4);
-                        $(this).attr("href", href);
-                        $(this).text($(this).text() + " " + extra);
+            var shiftWindow = function() { scrollBy(0, -50) };
+            if (location.hash) shiftWindow();
+            window.addEventListener("hashchange", shiftWindow);
+          
+            var user = null;
+
+            function loadAnonData() {
+                $('#sign-in').show();
+                $('#signed-in').hide();
+                $('#user-email').text('');
+
+                loadDataSet('anon');
+            }
+
+            function signIn() {
+                $('#sign-in').hide();
+                $('#signed-in').show();
+                $('#user-email').text(user.email);
+
+                // Load the user record
+                firebase.database().ref('users/' + user.uid).once('value').then(function(userRecord) {
+                    // On first login, we need to ask for their organization
+                    var organization = '';
+                    var usage = '';
+                    if(userRecord.val()) {
+                        organization = userRecord.val().organization || '';
+                        usage = userRecord.val().usage || '';
+                    }
+
+                    if(!organization) {
+                        $('#info-form').show();
+                        $('#data').hide();
+                    } else {
+                        loadDataSet('complete');
+                    }
+
+                    // Set the last login
+                    firebase.database().ref('users/' + user.uid).set({
+                        email: user.email,
+                        lastLogin: Date.now(),
+                        organization: organization,
+                        usage: usage
                     });
-                    event.preventDefault();
+                });
+            }
+
+            function signOut() {
+                firebase.auth().signOut();
+            }
+
+            function saveOrganization() {
+                event.preventDefault();
+
+                var organization = $('#form-organization').val();
+                var usage = $('#form-usage').val();
+
+                // Validate form
+                if(!organization) {
+                    alert('Organization is required');
+                    return;
                 }
+
+                // Save the data to the database
+                firebase.database().ref('users/' + user.uid).set({
+                    email: user.email,
+                    lastLogin: Date.now(),
+                    organization: organization,
+                    usage: usage
+                });
+
+                // Load court data
+                loadDataSet('complete');
+            }
+
+            function initApp() {
+                firebase.auth().onAuthStateChanged(function(activeUser) {
+                    user = activeUser;
+                    if (user) {
+                        // User is signed in.
+                        signIn();
+                    } else {
+                        // User is signed out.
+                        loadAnonData();
+                    }
+                }, function(error) {
+                    console.log(error);
+                });
+            }
+
+            var loadDataSet = function(dataSetName) {
+                firebase.database().ref('data/' + dataSetName).once('value').then(function(dataSetRef) {
+                    var dataSets = dataSetRef.val();
+                    console.log(dataSets);
+
+                    var courtDataSetTemplate = _.template(
+                        $("#courtDataSetTemplate").html()
+                    );
+
+                    for(var dataSetName in dataSets) {
+                        $("#" + dataSetName + "-table tbody").html(
+                            courtDataSetTemplate({
+                                dataSets: _.sortBy(dataSets[dataSetName], 'year')
+                            })
+                        );
+                    }
+                    $('#data').show();
+                });
+            };
+
+            window.addEventListener('load', function() {
+                initApp();
+                $('#info-form form').submit(saveOrganization);
+                $('#sign-out').click(signOut);
             });
-            var courtDataSetTemplate = _.template(
-                $("#courtDataSetTemplate").html()
-            );
-
-            circuitCourtCaseDataSets.reverse();
-            districtCourtCaseDataSets.reverse();
-
-            $("#criminalCircuitCourtTable thead").after(
-                courtDataSetTemplate({dataSets: circuitCourtCaseDataSets})
-            );
-            $("#criminalDistrictCourtTable thead").after(
-                courtDataSetTemplate({dataSets: districtCourtCaseDataSets})
-            );
         </script>
 
         <script>
