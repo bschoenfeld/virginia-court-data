@@ -51,7 +51,7 @@
               margin-bottom: 25px;
             }
 
-            #info-form, #data, #verify-email {
+            #info-form, #data, #waiting-approval {
               display: none;
             }
         </style>
@@ -158,9 +158,8 @@
               Signed in as <span id="user-email"></span>
               <button id="sign-out" class="btn btn-xs">Sign Out</button>
             </p>
-            <p id="verify-email">
-                Please check your email for a verification message from noreply@virginiacourtdata.org. Click the link and then reload this page.
-                <button class="btn btn-xs" id="resend-email">Resend Email</button>
+            <p id="waiting-approval">
+                We're looking over your request and we'll be in touch soon.
             </p>
             <div id="info-form">
               <p>Please provide some information for our records. If you have any quesitons, send us an <a href="mailto:info@virginiacourtdata.org">email</a>.</p>
@@ -278,8 +277,6 @@
         </script>
         <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
 
-        <script src="js/main.js"></script>
-
         <script type="text/javascript">
             var shiftWindow = function() { scrollBy(0, -50) };
             if (location.hash) shiftWindow();
@@ -305,36 +302,25 @@
                     // On first login, we need to ask for their organization
                     var organization = '';
                     var usage = '';
+                    var approved = false;
+
                     if(userRecord.val()) {
                         organization = userRecord.val().organization || '';
                         usage = userRecord.val().usage || '';
+                        approved = userRecord.val().approved || false;
                     }
 
                     if(!organization) {
                         $('#info-form').show();
                         $('#data').hide();
                         user.sendEmailVerification();
-                    } else if(!user.emailVerified) {
-                        $('#verify-email').show();
+                    } else if(!approved) {
+                        $('#waiting-approval').show();
                     } else {
-                        $('#verify-email').hide();
+                        $('#waiting-approval').hide();
                         loadDataSet('complete');
                     }
-
-                    // Set the last login
-                    firebase.database().ref('users/' + user.uid).set({
-                        email: user.email,
-                        lastLogin: Date.now(),
-                        organization: organization,
-                        usage: usage
-                    });
                 });
-            }
-
-            function resendEmail() {
-                if(user) {
-                    user.sendEmailVerification();
-                }
             }
 
             function signOut() {
@@ -362,13 +348,7 @@
                 });
 
                 $('#info-form').hide();
-
-                // Load court data
-                if(!user.emailVerified) {
-                    $('#verify-email').show();
-                } else {
-                    loadDataSet('complete');
-                }
+                $('#waiting-approval').show();
             }
 
             function initApp() {
@@ -407,7 +387,6 @@
 
             window.addEventListener('load', function() {
                 initApp();
-                $('#resend-email').click(resendEmail);
                 $('#info-form form').submit(saveOrganization);
                 $('#sign-out').click(signOut);
             });
