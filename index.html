@@ -149,7 +149,13 @@
           <h2>Download</h2>
 
           <div id="sign-in">
-            <div>Need un-anonymized data? We won't share your information with anyone.</div>
+            <div class="row">
+                <div class="col-md-9">
+                    If you are a journalist or you work for a non-profit organization or a research institution and 
+                    need un-anonymized data, you can request it by creating an account and providing just a couple 
+                    pieces of information. We won't share this with anyone.
+                </div>
+            </div>
             <a class="btn btn-primary" href="signin.html">Request Full Datasets</a>
           </div>
 
@@ -233,6 +239,19 @@
               </thead>
               <tbody></tbody>
             </table>
+
+            <h4>Circuit and District Criminal Cases By Defendant</h4>
+            <table class="table table-hover" id="person-table">
+              <thead>
+                <tr>
+                  <th>Cases</th>
+                  <th>Download Size</th>
+                  <th>Uncompressed Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -249,6 +268,17 @@
             <% _.each(dataSets, function(dataSet){ %>
                 <tr>
                     <td><%= dataSet.year %></td>
+                    <td><%= dataSet.cases.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
+                    <td><%= (dataSet.filesize / 1000000).toFixed(1) %> MB</td>
+                    <td><%= (dataSet.filesizeUncompressed / 1000000).toFixed(1) %> MB</td>
+                    <td><a href="<%= dataSet.downloadLink %>" target="_blank">Download</a></td>
+                </tr>
+            <% }); %>
+        </script>
+
+        <script type="text/template" id="courtDataSetPersonTemplate">
+            <% _.each(dataSets, function(dataSet){ %>
+                <tr>
                     <td><%= dataSet.cases.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
                     <td><%= (dataSet.filesize / 1000000).toFixed(1) %> MB</td>
                     <td><%= (dataSet.filesizeUncompressed / 1000000).toFixed(1) %> MB</td>
@@ -370,16 +400,28 @@
                 firebase.database().ref('data/' + dataSetName).once('value').then(function(dataSetRef) {
                     var dataSets = dataSetRef.val();
 
+                    var courtDataSetPersonTemplate = _.template(
+                        $("#courtDataSetPersonTemplate").html()
+                    );
+
                     var courtDataSetTemplate = _.template(
                         $("#courtDataSetTemplate").html()
                     );
 
                     for(var dataSetName in dataSets) {
-                        $("#" + dataSetName + "-table tbody").html(
-                            courtDataSetTemplate({
-                                dataSets: _.sortBy(dataSets[dataSetName], 'year')
-                            })
-                        );
+                        if(dataSetName === 'person') {
+                            $("#" + dataSetName + "-table tbody").html(
+                                courtDataSetPersonTemplate({
+                                    dataSets: _.sortBy(dataSets[dataSetName], 'day')
+                                })
+                            );
+                        } else {
+                            $("#" + dataSetName + "-table tbody").html(
+                                courtDataSetTemplate({
+                                    dataSets: _.sortBy(dataSets[dataSetName], 'year')
+                                })
+                            );
+                        }
                     }
                     $('#data').show();
                 });
