@@ -358,8 +358,6 @@
             }
 
             function saveOrganization() {
-                event.preventDefault();
-
                 var organization = $('#form-organization').val();
                 var usage = $('#form-usage').val();
 
@@ -429,7 +427,10 @@
 
             window.addEventListener('load', function() {
                 initApp();
-                $('#info-form form').submit(saveOrganization);
+                $('#info-form form').submit(function(event){
+                    event.preventDefault();
+                    saveOrganization();
+                });
                 $('#sign-out').click(signOut);
             });
         </script>
