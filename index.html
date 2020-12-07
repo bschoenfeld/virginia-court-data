@@ -263,16 +263,19 @@
               <tbody></tbody>
             </table>
 
-            <h4>Raw Data CSVs for Importing into a Database</h4>
-            <table class="table table-hover" id="database-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
+            <div id="database-table-wrapper">
+              <h4>Raw Data CSVs for Importing into a Database</h4>
+              <div>Note: Cases are organized by Filed Date</div>
+              <table class="table table-hover" id="database-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -425,6 +428,8 @@
             }
 
             var loadDataSet = function(dataSetName) {
+                $('#database-table-wrapper').hide();
+
                 firebase.database().ref('data/' + dataSetName).once('value').then(function(dataSetRef) {
                     var dataSets = dataSetRef.val();
 
@@ -448,6 +453,7 @@
                                 })
                             );
                         } else if(dataSetName === 'database') {
+                            $('#database-table-wrapper').show();
                             $("#" + dataSetName + "-table tbody").html(
                                 courtDataSetDatabaseTemplate({
                                     dataSets: _.sortBy(dataSets[dataSetName], 'name')
