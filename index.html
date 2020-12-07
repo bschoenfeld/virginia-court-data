@@ -262,6 +262,17 @@
               </thead>
               <tbody></tbody>
             </table>
+
+            <h4>Raw Data CSVs for Importing into a Database</h4>
+            <table class="table table-hover" id="database-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -296,6 +307,15 @@
                 </tr>
             <% }); %>
         </script>
+
+        <script type="text/template" id="courtDataSetDatabaseTemplate">
+            <% _.each(dataSets, function(dataSet){ %>
+                <tr>
+                    <td><%= dataSet.name %></td>
+                    <td><a href="<%= dataSet.downloadLink %>" target="_blank">Download</a></td>
+                </tr>
+            <% }); %>
+      </script>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
@@ -412,6 +432,10 @@
                         $("#courtDataSetPersonTemplate").html()
                     );
 
+                    var courtDataSetDatabaseTemplate = _.template(
+                        $("#courtDataSetDatabaseTemplate").html()
+                    );
+
                     var courtDataSetTemplate = _.template(
                         $("#courtDataSetTemplate").html()
                     );
@@ -421,6 +445,12 @@
                             $("#" + dataSetName + "-table tbody").html(
                                 courtDataSetPersonTemplate({
                                     dataSets: _.sortBy(dataSets[dataSetName], 'day')
+                                })
+                            );
+                        } else if(dataSetName === 'database') {
+                            $("#" + dataSetName + "-table tbody").html(
+                                courtDataSetDatabaseTemplate({
+                                    dataSets: _.sortBy(dataSets[dataSetName], 'name')
                                 })
                             );
                         } else {
