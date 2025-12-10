@@ -1,22 +1,24 @@
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
+const mg = require('nodemailer-mailgun-transport');
+require('dotenv').config(); // Good to keep this if using .env
 
-const sendgridUser = process.env.SENDGRID_USERNAME;
-const sendgridPass = process.env.SENDGRID_PASSWORD;
 
-const mailTransport = nodemailer.createTransport({
-  service: 'SendGrid',
-  auth: {
-    user: sendgridUser,
-    pass: sendgridPass
-  }
-});
-
-// Sends an email confirmation when a user changes his mailing list subscription.
 exports.sendEmailConfirmation = functions.database.ref('/users/{uid}/email').onCreate((snapshot, context) => {
     const email = snapshot.val();
 
-    if(!email) return;
+    if(!email) {
+        console.log('No email found in snapshot');
+        return null;
+    }
+
+    // Initialize Mailgun INSIDE the function
+    const mailTransport = nodemailer.createTransport(mg({
+      auth: {
+        api_key: process.env.MAILGUN_API_KEY,
+        domain: process.env.MAILGUN_DOMAIN
+      }
+    }));
 
     const mailOptions = {
         from: 'notify@virginiacourtdata.org',
@@ -24,15 +26,12 @@ exports.sendEmailConfirmation = functions.database.ref('/users/{uid}/email').onC
         subject: 'New User',
         text: email + ' is requesting access to the full data set'
     };
-    return mailTransport.sendMail(mailOptions).then(() => {
-        console.log('New user notification sent for ', email);
-    });
-});
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+    return mailTransport.sendMail(mailOptions)
+        .then(() => {
+            console.log('New user notification sent for ', email);
+        })
+        .catch((error) => {
+            console.error('Error sending email:', error);
+        });
+});

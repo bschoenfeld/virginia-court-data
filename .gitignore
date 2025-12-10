@@ -63,3 +63,4 @@ target/
 
 node_modules/
 cloud-functions/.firebaserc
+cloud-functions/functions/package-lock.json
